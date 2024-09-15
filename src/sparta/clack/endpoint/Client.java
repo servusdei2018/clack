@@ -1,6 +1,6 @@
-package your_team_name.clack.endpoint;
+package sparta.clack.endpoint;
 
-import your_team_name.clack.message.Message;
+import sparta.clack.message.Message;
 
 public class Client
 {

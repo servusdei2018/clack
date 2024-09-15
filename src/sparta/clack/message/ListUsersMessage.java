@@ -1,23 +1,27 @@
-package your_team_name.clack.message;
+package sparta.clack.message;
 
 import java.util.Objects;
 
+/*
+    This class is fully implemented, to help you get started.
+*/
+
 /**
  * This class represents a command to the server, asking for
- * termination of the connection.
+ * a list of all active users of the server.
  *
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
-public class LogoutMessage extends Message
+public class ListUsersMessage extends Message
 {
     /**
-     * Constructs a LogoutMessage with a given username.
+     * Constructs a ListUsersMessage with a given username
+     * and the msgType set to MSGTYPE_LISTUSERS
      *
      * @param username the user sending this message.
      */
-    public LogoutMessage(String username)
-    {
-        //TODO: Implement this. Use ListUsersMessage class as an example);
+    public ListUsersMessage(String username) {
+        super(username, MSGTYPE_LISTUSERS);
     }
 
     /**
@@ -29,7 +33,7 @@ public class LogoutMessage extends Message
     @Override
     public String[] getData()
     {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
+        return new String[0];
     }
 
     /**
@@ -44,8 +48,15 @@ public class LogoutMessage extends Message
     @Override
     public boolean equals(Object o)
     {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return false;
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != this.getClass()) {
+            return false;
+        }
+        ListUsersMessage that = (ListUsersMessage) o;
+        return Objects.equals(this.getTimestamp(), that.getTimestamp())
+                && Objects.equals(this.getUsername(), that.getUsername());
     }
 
     /**
@@ -57,20 +68,18 @@ public class LogoutMessage extends Message
     @Override
     public int hashCode()
     {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return 0;
+        return this.toString().hashCode();
     }
 
     /**
      * Constructs a string representation of this object:
-     *   "{class=LogoutMessage|" + super.toString() + "}"
+     *   "{class=ListUsersMessage|" + super.toString() + "}"
      *
-     * @return String showing fields and field contents
+     * @return this object's string representation.
      */
     @Override
     public String toString()
     {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return null;
+        return "{class=ListUsersMessage|" + super.toString() + "}";
     }
 }

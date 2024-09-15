@@ -1,12 +1,7 @@
-package your_team_name.clack.message;
+package sparta.clack.message;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * This class represents messages containing the name and

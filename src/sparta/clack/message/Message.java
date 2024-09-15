@@ -1,4 +1,4 @@
-package your_team_name.clack.message;
+package sparta.clack.message;
 
 import java.time.LocalDate;
 
