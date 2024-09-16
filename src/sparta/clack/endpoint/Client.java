@@ -5,6 +5,16 @@ import sparta.clack.message.TextMessage;
 
 import java.util.Scanner;
 
+/**
+ * Represents a client that connects to a server for sending and receiving messages.
+ * The client can be configured with a username, server name, and server port.
+ * It provides functionality to start a REPL (Read-Eval-Print Loop) for user interaction,
+ * read user input, and print messages.
+ * <p>
+ * The client uses a {@code Scanner} object to read user input from the console and
+ * creates {@code Message} objects based on that input.
+ * </p>
+ */
 public class Client {
     /**
      * Default port for connecting to server. This should be
@@ -31,12 +41,12 @@ public class Client {
      * A {@code Scanner} object used to read input from the standard input (stdin).
      * This field facilitates reading user input, such as commands or messages, from the console.
      */
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * Constructs a {@code Client} with the specified username, server name, and server port.
      *
-     * @param username the username of the client
+     * @param username   the username of the client
      * @param serverName the name of the server to connect to
      * @param serverPort the port of the server to connect to
      */
@@ -49,7 +59,7 @@ public class Client {
     /**
      * Constructs a {@code Client} with the specified username and the default server name and port.
      *
-     * @param username the username of the client
+     * @param username   the username of the client
      * @param serverName the name of the server to connect to
      */
     public Client(String username, String serverName) {
@@ -59,7 +69,7 @@ public class Client {
     /**
      * Constructs a {@code Client} with the specified username and server port, and the default server name.
      *
-     * @param username the username of the client
+     * @param username   the username of the client
      * @param serverPort the port of the server to connect to
      */
     public Client(String username, int serverPort) {
@@ -132,7 +142,7 @@ public class Client {
      * The string representation includes the class name, default server name and port,
      * and the values of the username, server name, server port, the message to send, and
      * the message received.
-     *
+     * <p>
      * The format of the returned string is:
      * <pre>
      * {class=Client|DEFAULT_SERVER_NAME=<defaultServerName>|DEFAULT_SERVER_PORT=<defaultServerPort>|username=<username>|serverName=<serverName>|serverPort=<serverPort>|messageToSend={<messageToSend>}|messageReceived={<messageReceived>}}
