@@ -9,18 +9,16 @@ import java.util.Objects;
  *
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
-public class TextMessage extends Message
-{
+public class TextMessage extends Message {
     private final String text;
 
     /**
      * Constructs a TextMessage object.
      *
      * @param username name of user sending the message.
-     * @param text text of the message itself.
+     * @param text     text of the message itself.
      */
-    public TextMessage(String username, String text)
-    {
+    public TextMessage(String username, String text) {
         super(username, MSGTYPE_TEXT);
         this.text = text;
     }
@@ -31,8 +29,7 @@ public class TextMessage extends Message
      * @return the message text, in a one-element String array.
      */
     @Override
-    public String[] getData()
-    {
+    public String[] getData() {
         //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
         return null;
     }
@@ -56,8 +53,8 @@ public class TextMessage extends Message
         }
         TextMessage that = (TextMessage) o;
         return Objects.equals(this.getTimestamp(), that.getTimestamp())
-               && Objects.equals(this.getUsername(), that.getUsername())
-               && Arrays.equals(this.getData(), that.getData());
+                && Objects.equals(this.getUsername(), that.getUsername())
+                && Arrays.equals(this.getData(), that.getData());
     }
 
     /**
@@ -76,8 +73,8 @@ public class TextMessage extends Message
     @Override
     public String toString() {
         return "{class=TextMessage|"
-               + super.toString()
-               + "|data=" + this.getData()[0]
-               + '}';
+                + super.toString()
+                + "|data=" + this.getData()[0]
+                + '}';
     }
 }

@@ -6,15 +6,13 @@ package sparta.clack.message;
  *
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
-public class LogoutMessage extends Message
-{
+public class LogoutMessage extends Message {
     /**
      * Constructs a LogoutMessage with a given username.
      *
      * @param username the user sending this message.
      */
-    public LogoutMessage(String username)
-    {
+    public LogoutMessage(String username) {
         //TODO: Implement this. Use ListUsersMessage class as an example);
     }
 
@@ -25,8 +23,7 @@ public class LogoutMessage extends Message
      * @return object data, in a String array.
      */
     @Override
-    public String[] getData()
-    {
+    public String[] getData() {
         //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
     }
 
@@ -40,8 +37,7 @@ public class LogoutMessage extends Message
      * are equal.
      */
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
         return false;
     }
@@ -53,21 +49,19 @@ public class LogoutMessage extends Message
      * @return hash of this object.
      */
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
         return 0;
     }
 
     /**
      * Constructs a string representation of this object:
-     *   "{class=LogoutMessage|" + super.toString() + "}"
+     * "{class=LogoutMessage|" + super.toString() + "}"
      *
      * @return String showing fields and field contents
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
         return null;
     }

@@ -2,17 +2,16 @@ package sparta.clack.endpoint;
 
 import sparta.clack.message.Message;
 
-public class Client
-{
+public class Client {
     /**
      * Default port for connecting to server. This should be
      * a port listed as "unassigned" in
      * <a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.txt">IANA</a>.
      */
-    public static final int DEFAULT_SERVER_PORT = 0 ; //TODO: choose an unassigned port (NOT 0!!)
+    public static final int DEFAULT_SERVER_PORT = 0; //TODO: choose an unassigned port (NOT 0!!)
 
     /**
-     *  The server to connect to if one is not explicitly given.
+     * The server to connect to if one is not explicitly given.
      */
     public static final String DEFAULT_SERVER_NAME = "localhost";
 
@@ -58,6 +57,7 @@ public class Client
     /**
      * Parse the line of user input and create the appropriate
      * message.
+     *
      * @return an object of the appropriate Message subclass.
      */
     public Message readUserInput() {

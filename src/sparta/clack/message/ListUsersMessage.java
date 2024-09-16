@@ -12,8 +12,7 @@ import java.util.Objects;
  *
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
-public class ListUsersMessage extends Message
-{
+public class ListUsersMessage extends Message {
     /**
      * Constructs a ListUsersMessage with a given username
      * and the msgType set to MSGTYPE_LISTUSERS
@@ -31,8 +30,7 @@ public class ListUsersMessage extends Message
      * @return object data, in a String array.
      */
     @Override
-    public String[] getData()
-    {
+    public String[] getData() {
         return new String[0];
     }
 
@@ -46,8 +44,7 @@ public class ListUsersMessage extends Message
      * are equal.
      */
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (o == this) {
             return true;
         }
@@ -66,20 +63,18 @@ public class ListUsersMessage extends Message
      * @return hash of this object.
      */
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return this.toString().hashCode();
     }
 
     /**
      * Constructs a string representation of this object:
-     *   "{class=ListUsersMessage|" + super.toString() + "}"
+     * "{class=ListUsersMessage|" + super.toString() + "}"
      *
      * @return this object's string representation.
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "{class=ListUsersMessage|" + super.toString() + "}";
     }
 }

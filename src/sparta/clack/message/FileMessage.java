@@ -9,12 +9,11 @@ import java.io.IOException;
  *
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
-public class FileMessage extends Message
-{
+public class FileMessage extends Message {
 
-    private String filePath;
-    private String fileSaveAsName;
-    private String fileContents;
+    private final String filePath;
+    private final String fileSaveAsName;
+    private final String fileContents;
 
     /**
      * Constructs a FileMessage object with a given username
@@ -23,12 +22,11 @@ public class FileMessage extends Message
      * not used in its entirety: only the filename portion of
      * is kept and used when saving the message's file contents.
      *
-     * @param username name of user for this message.
-     * @param filePath where to find the file to read.
+     * @param username       name of user for this message.
+     * @param filePath       where to find the file to read.
      * @param fileSaveAsPath the filename portion of this is used when saving the file.
      */
-    public FileMessage(String username, String filePath, String fileSaveAsPath)
-    {
+    public FileMessage(String username, String filePath, String fileSaveAsPath) {
         super(username, MSGTYPE_FILE);
         this.filePath = filePath;
         //TODO: parse the filename portion of fileSaveAsPath, and assign
@@ -48,9 +46,8 @@ public class FileMessage extends Message
      * @param username name of user for this message.
      * @param filePath where to find the file to read, and where to write it.
      */
-    public FileMessage(String username, String filePath)
-    {
-       this(username, filePath, filePath);
+    public FileMessage(String username, String filePath) {
+        this(username, filePath, filePath);
     }
 
     /**
@@ -58,8 +55,7 @@ public class FileMessage extends Message
      *
      * @return the path to the file to read.
      */
-    public String getFilePath()
-    {
+    public String getFilePath() {
         return filePath;
     }
 
@@ -79,8 +75,7 @@ public class FileMessage extends Message
      *
      * @param filePath new file name to associate with this message.
      */
-    public void setFilePath(String filePath)
-    {
+    public void setFilePath(String filePath) {
         //TODO: Implement this.
     }
 
@@ -92,8 +87,7 @@ public class FileMessage extends Message
      *
      * @throws IllegalArgumentException if fileSaveAsName contains path components
      */
-    public void setFileSaveAsName(String fileSaveAsName)
-    {
+    public void setFileSaveAsName(String fileSaveAsName) {
         //TODO: implement this. Remember that Java has libraries
         //  for manipulating file paths and names.
     }
@@ -108,8 +102,7 @@ public class FileMessage extends Message
      * @return the current values of filePath, fileSaveAsName, and fileContents.
      */
     @Override
-    public String[] getData()
-    {
+    public String[] getData() {
         //TODO: Implement this. Return an array as described in the
         //  JavaDoc, not null.
         return null;
@@ -119,15 +112,14 @@ public class FileMessage extends Message
      * Read contents of file 'fileName' into this message's fileContents.
      *
      * @throws IOException if the file named by this.filename does
-     * not exist or cannot be opened for reading.
+     *                     not exist or cannot be opened for reading.
      */
     /* Since Java 11, there's an easy way to do this. It even handles
      * closing the files when done, whether normally or by Exception
      * (so we don't need to use try-with-resources). See
        https://howtodoinjava.com/java/io/java-read-file-to-string-examples/
      */
-    public void readFile() throws IOException
-    {
+    public void readFile() throws IOException {
         //TODO: Implement this.
     }
 
@@ -135,10 +127,9 @@ public class FileMessage extends Message
      * Write this message's fileContents to the local Clack directory.
      *
      * @throws FileNotFoundException if file cannot be found or created,
-     * or opened for writing.
+     *                               or opened for writing.
      */
-    public void writeFile() throws FileNotFoundException
-    {
+    public void writeFile() throws FileNotFoundException {
         // TODO: Implement this. Use try-with-resources to ensure
         //   output file is closed.
         // HOLD OFF FOR NOW ON IMPLEMENTING THIS. There is a design
@@ -146,22 +137,19 @@ public class FileMessage extends Message
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         //TODO: Implement this. Should be similar to TextMessage class,
         //  but include filePath, fileSaveAsName, and fileContents.
         return null;
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         //TODO: Implement this.
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         //TODO: Implement this.
     }
 

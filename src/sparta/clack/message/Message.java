@@ -7,8 +7,7 @@ import java.time.LocalDate;
  *
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
-public abstract class Message
-{
+public abstract class Message {
     //TODO: JavaDoc for each of these public "manifest constants"
     public static int MSGTYPE_ENCRYPTION = 0;
     public static int MSGTYPE_FILE = 10;
@@ -31,8 +30,7 @@ public abstract class Message
      *
      * @param username name of user creating this message.
      */
-    protected Message(String username, int msgType)
-    {
+    protected Message(String username, int msgType) {
         this.timestamp = LocalDate.now();
         this.username = username;
         this.msgType = msgType;
@@ -48,8 +46,7 @@ public abstract class Message
      *
      * @return the msgType for the object's concrete subclass.
      */
-    public int getMsgType()
-    {
+    public int getMsgType() {
         //TODO: implement this (return something other than null)
         return null;
     }
@@ -59,8 +56,7 @@ public abstract class Message
      *
      * @return the message's timestamp (as a LocalDate).
      */
-    public LocalDate getTimestamp()
-    {
+    public LocalDate getTimestamp() {
         //TODO: implement this (return something other than null)
         return null;
     }
@@ -70,8 +66,7 @@ public abstract class Message
      *
      * @return the message's username.
      */
-    public String getUsername()
-    {
+    public String getUsername() {
         //TODO: implement this (return something other than null)
         return null;
     }
@@ -90,7 +85,7 @@ public abstract class Message
      * Equality comparison. Returns true iff the other object is of
      * the same class and all fields (including those inherited from
      * superclasses) are equal.
-     *
+     * <p>
      * This is an abstract method; each concrete subclass must
      * override this with a subclass-appropriate implementation.
      *
@@ -103,10 +98,10 @@ public abstract class Message
     /**
      * Return this object's hash. In Message objects, this is simply the
      * hash of the string returned by this.toString().
-     *
+     * <p>
      * This is an abstract method; each concrete subclass must
      * override this with a subclass-appropriate implementation.
-
+     *
      * @return hash of this object.
      */
     public int hashCode() {
@@ -116,16 +111,16 @@ public abstract class Message
     /**
      * Return a string representation of this object (note no spaces):
      * <br>
-     *   <code>"timestamp=<i>the_timestamp</i>|username=<i>the_username</i>"</code>
+     * <code>"timestamp=<i>the_timestamp</i>|username=<i>the_username</i>"</code>
      * <br>
      * No class name or enclosing brackets are included in the returned
      * string, to allow subclasses to use this method in their
      * toString() implementations.
      * <br><br>
+     *
      * @return String showing fields and field contents
      */
-    public String toString()
-    {
+    public String toString() {
         //TODO: implement this (return what is described in the JavaDoc instead of null)
         return null;
     }
