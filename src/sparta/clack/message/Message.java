@@ -117,7 +117,6 @@ public abstract class Message {
      * @return String showing fields and field contents
      */
     public String toString() {
-        //TODO: implement this (return what is described in the JavaDoc instead of null)
-        return null;
+        return String.format("timestamp=%s|username=%s", timestamp, username);
     }
 }
