@@ -2,6 +2,7 @@ package sparta.clack.message;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * This class represents messages containing the name and
@@ -29,10 +30,7 @@ public class FileMessage extends Message {
     public FileMessage(String username, String filePath, String fileSaveAsPath) {
         super(username, MSGTYPE_FILE);
         this.filePath = filePath;
-        //TODO: parse the filename portion of fileSaveAsPath, and assign
-        // it to this.fileSaveAsName. NOTE: There are Java library routines
-        // for manipulating file paths and names. Don't re-invent!
-        this.fileSaveAsName = null;
+        this.fileSaveAsName = Paths.get(filePath).getFileName().toString();
         // This really should be null when object is created.
         this.fileContents = null;
     }
