@@ -48,7 +48,7 @@ public abstract class Message {
      */
     public int getMsgType() {
         //TODO: implement this (return something other than null)
-        return null;
+        return msgType;
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class Message {
      */
     public LocalDate getTimestamp() {
         //TODO: implement this (return something other than null)
-        return null;
+        return timestamp;
     }
 
     /**
@@ -68,7 +68,7 @@ public abstract class Message {
      */
     public String getUsername() {
         //TODO: implement this (return something other than null)
-        return null;
+        return username;
     }
 
     /**
