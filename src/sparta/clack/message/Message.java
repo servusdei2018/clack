@@ -8,7 +8,6 @@ import java.time.LocalDate;
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
 public abstract class Message {
-    //TODO: JavaDoc for each of these public "manifest constants"
     public static int MSGTYPE_ENCRYPTION = 0;
     public static int MSGTYPE_FILE = 10;
     public static int MSGTYPE_LISTUSERS = 20;
@@ -47,7 +46,6 @@ public abstract class Message {
      * @return the msgType for the object's concrete subclass.
      */
     public int getMsgType() {
-        //TODO: implement this (return something other than null)
         return msgType;
     }
 
@@ -57,7 +55,6 @@ public abstract class Message {
      * @return the message's timestamp (as a LocalDate).
      */
     public LocalDate getTimestamp() {
-        //TODO: implement this (return something other than null)
         return timestamp;
     }
 
@@ -67,7 +64,6 @@ public abstract class Message {
      * @return the message's username.
      */
     public String getUsername() {
-        //TODO: implement this (return something other than null)
         return username;
     }
 
