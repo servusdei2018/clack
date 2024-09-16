@@ -1,17 +1,22 @@
 package sparta.clack.endpoint;
 
 import sparta.clack.message.Message;
+import sparta.clack.message.TextMessage;
+
+import java.util.Scanner;
 
 public class Client {
     /**
      * Default port for connecting to server. This should be
-     * a port listed as "unassigned" in
+     * a port li sted as "unassigned" in
      * <a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.txt">IANA</a>.
      */
     public static final int DEFAULT_SERVER_PORT = 0; //TODO: choose an unassigned port (NOT 0!!)
 
     /**
-     * The server to connect to if one is not explicitly given.
+     * The default server name to connect to if one is not explicitly provided.
+     * The default value is "localhost", which indicates that the client will connect
+     * to the local machine.
      */
     public static final String DEFAULT_SERVER_NAME = "localhost";
 
@@ -22,24 +27,50 @@ public class Client {
     private Message messageToSend;
     private Message messageReceived;
 
-    //TODO: JavaDoc
+    /**
+     * A {@code Scanner} object used to read input from the standard input (stdin).
+     * This field facilitates reading user input, such as commands or messages, from the console.
+     */
+    private Scanner scanner = new Scanner(System.in);
+
+    /**
+     * Constructs a {@code Client} with the specified username, server name, and server port.
+     *
+     * @param username the username of the client
+     * @param serverName the name of the server to connect to
+     * @param serverPort the port of the server to connect to
+     */
     public Client(String username, String serverName, int serverPort) {
         this.username = username;
         this.serverName = serverName;
         this.serverPort = serverPort;
     }
 
-    //TODO: JavaDoc
+    /**
+     * Constructs a {@code Client} with the specified username and the default server name and port.
+     *
+     * @param username the username of the client
+     * @param serverName the name of the server to connect to
+     */
     public Client(String username, String serverName) {
         this(username, serverName, DEFAULT_SERVER_PORT);
     }
 
-    //TODO: JavaDoc
+    /**
+     * Constructs a {@code Client} with the specified username and server port, and the default server name.
+     *
+     * @param username the username of the client
+     * @param serverPort the port of the server to connect to
+     */
     public Client(String username, int serverPort) {
         this(username, DEFAULT_SERVER_NAME, serverPort);
     }
 
-    //TODO: JavaDoc
+    /**
+     * Constructs a {@code Client} with the specified username, and default server name and port.
+     *
+     * @param username the username of the client
+     */
     public Client(String username) {
         this(username, DEFAULT_SERVER_NAME, DEFAULT_SERVER_PORT);
     }
@@ -51,7 +82,12 @@ public class Client {
      * user enters "LOGOUT".
      */
     public void start() {
-        //TODO: Implement this.
+        while (true) {
+            Message message = readUserInput();
+            if (message.toString().equals("LOGOUT")) {
+                break;
+            }
+        }
     }
 
     /**
@@ -61,8 +97,7 @@ public class Client {
      * @return an object of the appropriate Message subclass.
      */
     public Message readUserInput() {
-        //TODO: implement this.
-        return null;
+        return new TextMessage(this.username, this.scanner.nextLine());
     }
 
     /**
@@ -71,22 +106,40 @@ public class Client {
      * on the messageReceived object.
      */
     public void printMessage() {
-        //TODO: implement this.
+        System.out.println(this.messageReceived.toString());
     }
 
-    //TODO: JavaDoc
+    /**
+     * Returns the username of this client.
+     *
+     * @return the username of the client
+     */
     public String getUsername() {
-        //TODO: implement this (return something other than null)
-        return null;
+        return this.username;
     }
 
-    //TODO: JavaDoc
+    /**
+     * Returns the server name that this client is connected to.
+     *
+     * @return the server name of the client
+     */
     public String getServerName() {
-        //TODO: implement this (return something other than null)
-        return null;
+        return this.serverName;
     }
 
-    //TODO: JavaDoc
+    /**
+     * Returns a string representation of this {@code Client} object.
+     * The string representation includes the class name, default server name and port,
+     * and the values of the username, server name, server port, the message to send, and
+     * the message received.
+     *
+     * The format of the returned string is:
+     * <pre>
+     * {class=Client|DEFAULT_SERVER_NAME=<defaultServerName>|DEFAULT_SERVER_PORT=<defaultServerPort>|username=<username>|serverName=<serverName>|serverPort=<serverPort>|messageToSend={<messageToSend>}|messageReceived={<messageReceived>}}
+     * </pre>
+     *
+     * @return a string representation of this {@code Client} object
+     */
     public String toString() {
         return "{class=Client|"
                 + "|DEFAULT_SERVER_NAME=" + DEFAULT_SERVER_NAME
