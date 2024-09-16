@@ -30,8 +30,7 @@ public class TextMessage extends Message {
      */
     @Override
     public String[] getData() {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return null;
+        return new String[]{ text };
     }
 
     /**
@@ -65,12 +64,25 @@ public class TextMessage extends Message {
      */
     @Override
     public int hashCode() {
-        //TODO: Implement this according to JavaDoc
-        return 0;
+        return this.toString().hashCode();
     }
 
-    //TODO: JavaDoc
-    @Override
+    /**
+     * Returns a string representation of this TextMessage object.
+     * <p>
+     * The string representation includes the class name, the output
+     * of the superclass's {@code toString} method, and the message data.
+     * The format of the string is:
+     * <pre>
+     * {class=TextMessage|superclass-toString|data=message-text}
+     * </pre>
+     * where {@code superclass-toString} is the string representation
+     * from the superclass and {@code message-text} is the actual text
+     * of the message.
+     * </p>
+     *
+     * @return a string representation of this TextMessage object.
+     */    @Override
     public String toString() {
         return "{class=TextMessage|"
                 + super.toString()
