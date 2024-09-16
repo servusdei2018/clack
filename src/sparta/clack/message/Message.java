@@ -45,9 +45,7 @@ public abstract class Message {
      *
      * @return the msgType for the object's concrete subclass.
      */
-    public int getMsgType() {
-        return msgType;
-    }
+    public int getMsgType() { return this.msgType; }
 
     /**
      * Gets the message's timestamp (as a LocalDate).
@@ -55,7 +53,7 @@ public abstract class Message {
      * @return the message's timestamp (as a LocalDate).
      */
     public LocalDate getTimestamp() {
-        return timestamp;
+        return this.timestamp;
     }
 
     /**
@@ -64,7 +62,7 @@ public abstract class Message {
      * @return the message's username.
      */
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     /**
