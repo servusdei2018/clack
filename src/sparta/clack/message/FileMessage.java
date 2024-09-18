@@ -63,8 +63,7 @@ public class FileMessage extends Message {
      * @return the path where the file is to be written.
      */
     public String getFileSaveAsName() {
-        //TODO: Implement this. Return something other than null.
-        return null;
+        return fileSaveAsName;
     }
 
     /**
