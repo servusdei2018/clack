@@ -55,8 +55,7 @@ public class LogoutMessage extends Message {
      */
     @Override
     public int hashCode() {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return 0;
+        return this.toString().hashCode();
     }
 
     /**
