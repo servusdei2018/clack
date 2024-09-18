@@ -12,9 +12,9 @@ import java.nio.file.Paths;
  */
 public class FileMessage extends Message {
 
-    private final String filePath;
-    private final String fileSaveAsName;
-    private final String fileContents;
+    private String filePath;
+    private String fileSaveAsName;
+    private String fileContents;
 
     /**
      * Constructs a FileMessage object with a given username
@@ -74,7 +74,7 @@ public class FileMessage extends Message {
      * @param filePath new file name to associate with this message.
      */
     public void setFilePath(String filePath) {
-        //TODO: Implement this.
+        this.filePath = filePath;
     }
 
     /**
@@ -148,7 +148,7 @@ public class FileMessage extends Message {
 
     @Override
     public int hashCode() {
-        //TODO: Implement this.
+        return this.toString().hashCode();
     }
 
 }
