@@ -85,8 +85,12 @@ public class FileMessage extends Message {
      * @throws IllegalArgumentException if fileSaveAsName contains path components
      */
     public void setFileSaveAsName(String fileSaveAsName) {
-        //TODO: implement this. Remember that Java has libraries
-        //  for manipulating file paths and names.
+        try {
+            Paths.get(fileSaveAsName);
+            this.fileSaveAsName = Paths.get(fileSaveAsName).toString();
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(fileSaveAsName + ": String contains path components.", e.getCause());
+        }
     }
 
     /**
