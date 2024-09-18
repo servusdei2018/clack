@@ -142,7 +142,11 @@ public class FileMessage extends Message {
 
     @Override
     public boolean equals(Object o) {
-        //TODO: Implement this.
+        FileMessage obj = (FileMessage) o;
+        if(this.getData().equals(obj.getData())){
+            return true;
+        }
+        return false;
     }
 
     @Override
