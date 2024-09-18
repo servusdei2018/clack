@@ -136,9 +136,7 @@ public class FileMessage extends Message {
 
     @Override
     public String toString() {
-        //TODO: Implement this. Should be similar to TextMessage class,
-        //  but include filePath, fileSaveAsName, and fileContents.
-        return null;
+        return String.format("{filePath=%s|fileSaveasName=%s|fileContents=%s", filePath, fileSaveAsName, fileContents);
     }
 
     @Override
