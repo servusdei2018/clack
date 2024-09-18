@@ -13,7 +13,7 @@ public class LogoutMessage extends Message {
      * @param username the user sending this message.
      */
     public LogoutMessage(String username) {
-        //TODO: Implement this. Use ListUsersMessage class as an example);
+        super(username, MSGTYPE_LOGOUT);
     }
 
     /**
@@ -24,7 +24,7 @@ public class LogoutMessage extends Message {
      */
     @Override
     public String[] getData() {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
+        return new String[0];
     }
 
     /**
@@ -38,7 +38,12 @@ public class LogoutMessage extends Message {
      */
     @Override
     public boolean equals(Object o) {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
+        if (this.getClass() == o.getClass()) {
+            LogoutMessage msg = (LogoutMessage) o;
+            if (this.getUsername().equals(msg.getUsername()) && this.getMsgType() == msg.getMsgType() && this.getTimestamp() == msg.getTimestamp()){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -62,7 +67,6 @@ public class LogoutMessage extends Message {
      */
     @Override
     public String toString() {
-        //TODO: Implement this according to JavaDoc. Use ListUsersMessage for an example.
-        return null;
+        return String.format("{class=LogoutMessage|%s}", super.toString());
     }
 }
