@@ -136,7 +136,7 @@ public class FileMessage extends Message {
 
     @Override
     public String toString() {
-        return String.format("{filePath=%s|fileSaveasName=%s|fileContents=%s", filePath, fileSaveAsName, fileContents);
+        return String.format("{filePath=%s|fileSaveAsName=%s|fileContents=%s", filePath, fileSaveAsName, fileContents);
     }
 
     @Override
