@@ -101,9 +101,7 @@ public class FileMessage extends Message {
      */
     @Override
     public String[] getData() {
-        //TODO: Implement this. Return an array as described in the
-        //  JavaDoc, not null.
-        return null;
+        return new String[] {filePath, fileSaveAsName, fileContents};
     }
 
     /**
