@@ -82,7 +82,8 @@ public class TextMessage extends Message {
      * </p>
      *
      * @return a string representation of this TextMessage object.
-     */    @Override
+     */
+    @Override
     public String toString() {
         return "{class=TextMessage|"
                 + super.toString()
