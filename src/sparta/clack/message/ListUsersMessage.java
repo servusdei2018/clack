@@ -2,10 +2,6 @@ package sparta.clack.message;
 
 import java.util.Objects;
 
-/*
-    This class is fully implemented, to help you get started.
-*/
-
 /**
  * This class represents a command to the server, asking for
  * a list of all active users of the server.
