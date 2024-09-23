@@ -1,3 +1,3 @@
 Team name: sparta
 
-Team members: Nathanael Bracy
+Team members: Nathanael Bracy, Hunter Smith
