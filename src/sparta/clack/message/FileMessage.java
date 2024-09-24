@@ -110,7 +110,7 @@ public class FileMessage extends Message {
     /**
      * Read contents of file 'fileName' into this message's fileContents.
      *
-     * @throws IOException if the file named by this.filename does
+     * @throws IOException if the file named by this.fileName does
      *                     not exist or cannot be opened for reading.
      */
     /* Since Java 11, there's an easy way to do this. It even handles
