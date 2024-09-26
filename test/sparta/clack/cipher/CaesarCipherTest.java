@@ -1,4 +1,4 @@
-wpackage sparta.clack.cipher;
+package sparta.clack.cipher;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
