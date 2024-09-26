@@ -1,8 +1,10 @@
 package sparta.clack.endpoint;
 
 import sparta.clack.message.Message;
+import sparta.clack.message.FileMessage;
 import sparta.clack.message.TextMessage;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -96,6 +98,19 @@ public class Client {
             Message message = readUserInput();
             if (message.toString().equals("LOGOUT")) {
                 break;
+            }
+
+            this.messageReceived = messageToSend;
+            this.printMessage();
+
+            if (this.messageReceived instanceof FileMessage) {
+                System.out.print("Enter filename to save the file: ");
+                String filename = this.scanner.nextLine();
+                try {
+                    ((FileMessage) this.messageReceived).writeFile();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }

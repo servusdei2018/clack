@@ -114,11 +114,6 @@ public class FileMessage extends Message {
      * @throws IOException if the file named by this.fileName does
      *                     not exist or cannot be opened for reading.
      */
-    /* Since Java 11, there's an easy way to do this. It even handles
-     * closing the files when done, whether normally or by Exception
-     * (so we don't need to use try-with-resources). See
-       https://howtodoinjava.com/java/io/java-read-file-to-string-examples/
-     */
     public void readFile() throws IOException {
         this.fileContents = Files.readString(Paths.get(this.getFilePath()));
     }
