@@ -1,5 +1,7 @@
 package sparta.clack.cipher;
 
+import java.util.HashSet;
+
 /**
  * The {@code CaesarCipher} class implements encryption and decryption using the Caesar cipher technique.
  *
@@ -37,8 +39,23 @@ public class CaesarCipher {
      *                 It is converted to uppercase for consistency.
      */
     public CaesarCipher(int key, String alphabet) {
+        if (alphabet == null || alphabet.isEmpty()) {
+            throw new IllegalArgumentException("empty alphabet not allowed");
+        }
+        if (key == 0) {
+            throw new IllegalArgumentException("key of zero not allowed");
+        }
+
+        // Check for duplicate characters in the alphabet
+        HashSet<Character> charSet = new HashSet<>();
+        for (char c : alphabet.toCharArray()) {
+            if (!charSet.add(c)) {
+                throw new IllegalArgumentException("duplicate chars in alphabet");
+            }
+        }
+
         this.key = key % alphabet.length(); // Handle key larger than alphabet length
-        this.alphabet = alphabet.toUpperCase();
+        this.alphabet = alphabet;
     }
 
     /**
@@ -80,10 +97,9 @@ public class CaesarCipher {
      */
     private String transform(String text, int shift) {
         StringBuilder transformed = new StringBuilder();
-        String upperText = text.toUpperCase();
         int alphabetLength = alphabet.length();
 
-        for (char c : upperText.toCharArray()) {
+        for (char c : text.toCharArray()) {
             int index = alphabet.indexOf(c);
             if (index >= 0) {
                 int newIndex = (index + shift + alphabetLength) % alphabetLength;

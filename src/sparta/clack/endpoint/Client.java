@@ -35,7 +35,7 @@ public class Client {
     private final String username;
     private final String serverName;
     private final int serverPort;
-    private final String saveDirectory;
+    private final String saveDirectory = System.getProperty("user.dir");
     private Message messageToSend;
     private Message messageReceived;
 
