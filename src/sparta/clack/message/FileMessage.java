@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 /**
  * This class represents messages containing the name and
@@ -139,10 +140,7 @@ public class FileMessage extends Message {
     @Override
     public boolean equals(Object o) {
         FileMessage obj = (FileMessage) o;
-        if(this.getData().equals(obj.getData())){
-            return true;
-        }
-        return false;
+        return Arrays.equals(this.getData(), obj.getData());
     }
 
     @Override

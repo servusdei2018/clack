@@ -13,7 +13,7 @@ package sparta.clack.cipher;
  */
 public class CaesarCipher {
     // Default alphabet used for encryption/decryption
-    private static final String DEFAULT_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    protected static final String DEFAULT_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     private final String alphabet;
     private final int key;
