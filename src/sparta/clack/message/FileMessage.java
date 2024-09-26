@@ -2,6 +2,7 @@ package sparta.clack.message;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
@@ -119,7 +120,7 @@ public class FileMessage extends Message {
        https://howtodoinjava.com/java/io/java-read-file-to-string-examples/
      */
     public void readFile() throws IOException {
-        //TODO: Implement this.
+        this.fileContents = Files.readString(Paths.get(this.getFilePath()));
     }
 
     /**
