@@ -38,6 +38,9 @@ public class LogoutMessage extends Message {
      */
     @Override
     public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
         if (this.getClass() == o.getClass()) {
             LogoutMessage msg = (LogoutMessage) o;
             if (this.getUsername().equals(msg.getUsername()) && this.getMsgType() == msg.getMsgType() && this.getTimestamp() == msg.getTimestamp()){

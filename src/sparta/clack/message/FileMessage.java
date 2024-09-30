@@ -33,8 +33,7 @@ public class FileMessage extends Message {
         super(username, MSGTYPE_FILE);
         this.filePath = filePath;
         this.fileSaveAsName = Paths.get(filePath).getFileName().toString();
-        // This really should be null when object is created.
-        this.fileContents = null;
+        this.fileContents = "";
     }
 
     /**
@@ -56,7 +55,17 @@ public class FileMessage extends Message {
      * @return the path to the file to read.
      */
     public String getFilePath() {
-        return filePath;
+        return this.filePath;
+    }
+
+    /**
+     * Retrieves the contents of the file associated with this message.
+     *
+     * @return the contents of the file as a String. If the file has not
+     *         been read yet, this may return null.
+     */
+    public String getFileContents() {
+        return this.fileContents;
     }
 
     /**
@@ -65,7 +74,7 @@ public class FileMessage extends Message {
      * @return the path where the file is to be written.
      */
     public String getFileSaveAsName() {
-        return fileSaveAsName;
+        return this.fileSaveAsName;
     }
 
     /**
@@ -139,6 +148,9 @@ public class FileMessage extends Message {
 
     @Override
     public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
         FileMessage obj = (FileMessage) o;
         return Arrays.equals(this.getData(), obj.getData());
     }
