@@ -3,6 +3,7 @@ package sparta.clack.message;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
@@ -134,10 +135,12 @@ public class FileMessage extends Message {
      *                               or opened for writing.
      */
     public void writeFile() throws FileNotFoundException {
-        // TODO: Implement this. Use try-with-resources to ensure
-        //   output file is closed.
-        // HOLD OFF FOR NOW ON IMPLEMENTING THIS. There is a design
-        //   issue that we'll discuss in class.
+        Path savePath = Paths.get(this.getFileSaveAsName());
+        try {
+            Files.writeString(savePath, this.fileContents);
+        } catch (IOException e) {
+            throw new FileNotFoundException("Could not write to file: " + savePath + " - " + e.getMessage());
+        }
     }
 
     /**
