@@ -74,9 +74,9 @@ public class TextMessage extends Message {
      * of the superclass's {@code toString} method, and the message data.
      * The format of the string is:
      * <pre>
-     * {class=TextMessage|superclass-toString|data=message-text}
+     * {class=TextMessage|super.toString()|data=message-text}
      * </pre>
-     * where {@code superclass-toString} is the string representation
+     * where {@code super.toString()} is the string representation
      * from the superclass and {@code message-text} is the actual text
      * of the message.
      * </p>

@@ -32,7 +32,7 @@ public class FileMessage extends Message {
     public FileMessage(String username, String filePath, String fileSaveAsPath) {
         super(username, MSGTYPE_FILE);
         this.filePath = filePath;
-        this.fileSaveAsName = Paths.get(filePath).getFileName().toString();
+        this.fileSaveAsName = Paths.get(fileSaveAsPath).getFileName().toString();
         this.fileContents = "";
     }
 
@@ -97,8 +97,7 @@ public class FileMessage extends Message {
      */
     public void setFileSaveAsName(String fileSaveAsName) {
         try {
-            Paths.get(fileSaveAsName);
-            this.fileSaveAsName = Paths.get(fileSaveAsName).toString();
+            this.fileSaveAsName = Paths.get(fileSaveAsName).getFileName().toString();
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(fileSaveAsName + ": String contains path components.", e.getCause());
         }
@@ -141,16 +140,45 @@ public class FileMessage extends Message {
         //   issue that we'll discuss in class.
     }
 
+    /**
+     * Returns a string representation of this TextMessage object.
+     * <p>
+     *
+     *
+     * The format of the string is:
+     * <pre>
+     * {class=FileMessage|super.toString()|filePath=file-path|fileSaveAsName=file-save-as-name|fileContents=file-contents}
+     * </pre>
+     * where {@code super.toString()} is the string representation
+     * from the superclass, {@code file-path} is the file path, {@code file-save-as-name}
+     * is the name to save the file as, and {@code file-contents} are the contents of the file.
+     * </p>
+     *
+     * @return a string representation of this FileMessage object.
+     */
     @Override
     public String toString() {
-        return String.format("{filePath=%s|fileSaveAsName=%s|fileContents=%s", filePath, fileSaveAsName, fileContents);
+        return String.format("{class=FileMessage|"
+                +"%s|"
+                +"filePath=%s|"
+                +"fileSaveAsName=%s|"
+                +"fileContents=%s"
+                +"}",
+                super.toString(), filePath, fileSaveAsName, fileContents);
     }
 
     @Override
     public boolean equals(Object o) {
+        // Guard against nulls
         if (o == null) {
             return false;
         }
+        // Check for Message equality
+        Message msg = (Message) o;
+        if (!msg.getUsername().equals(this.getUsername())) {
+            return false;
+        }
+        // Check for FileMessage equality
         FileMessage obj = (FileMessage) o;
         return Arrays.equals(this.getData(), obj.getData());
     }
