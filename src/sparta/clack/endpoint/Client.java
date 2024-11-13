@@ -60,11 +60,11 @@ public class Client {
     }
 
     /**
-     * Starts this client, connecting to the server and port that
-     * it was given when constructed.
+     * Starts this client, connecting to the server and port that it was given when constructed.
      *
-     * @throws UnknownHostException if hostname is not resolvable.
-     * @throws IOException          if socket creation, wrapping, or IO fails.
+     * @throws UnknownHostException if the hostname cannot be resolved.
+     * @throws IOException if an I/O error occurs while communicating with the server.
+     * @throws ClassNotFoundException if a received message's class cannot be found.
      */
     public void start() throws UnknownHostException, IOException, ClassNotFoundException {
         System.out.println("Attempting connection to " + hostname + ":" + port);

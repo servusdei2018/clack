@@ -9,14 +9,29 @@ import java.time.Instant;
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
 public abstract class Message implements  Serializable {
+    /**
+     * The type of message (e.g., TEXT, LISTUSERS, LOGOUT).
+     * This defines the kind of message being sent.
+     */
     private final MsgType msgType;
+
+    /**
+     * The timestamp when the message was created.
+     * This represents the exact time the message was sent.
+     */
     private final Instant timestamp;
+
+    /**
+     * The username of the user who sent the message.
+     * This identifies the originator of the message.
+     */
     private final String username;
 
     /**
      * Constructs a Message object with a given username.
      *
      * @param username name of user creating this message.
+     * @param msgType the type of the message (e.g., TEXT, LISTUSERS, LOGOUT).
      */
     protected Message(String username, MsgType msgType) {
         this.msgType = msgType;

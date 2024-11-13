@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"sparta.clack.cipher"},{"l":"sparta.clack.endpoint"},{"l":"sparta.clack.message"}];updateSearchResults();

@@ -63,8 +63,8 @@ public class Server
     /**
      * Starts this server, listening on the port it was constructed with.
      *
-     * @throws IOException if ServerSocket creation, connection
-     *                     acceptance, wrapping, or IO fails.
+     * @throws IOException if ServerSocket creation, connection acceptance, wrapping, or IO fails.
+     * @throws ClassNotFoundException if a message's class cannot be found during deserialization.
      */
     public void start() throws IOException, ClassNotFoundException
     {

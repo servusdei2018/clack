@@ -4,8 +4,13 @@ package sparta.clack.cipher;
  * Abstract class for ciphers that work on character data.
  */
 public abstract class CharacterCipher {
-    // Default alphabet used for encryption/decryption
+    /**
+     * Default alphabet used for encryption/decryption.
+     */
     public static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    /** Create new instance of CharacterCipher. */
+    public CharacterCipher() {}
 
     /**
      * Return a copy of a string, but reformatted into groups of

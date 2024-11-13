@@ -3,7 +3,10 @@ package sparta.clack.message;
 /**
  * This class represents messages containing text entered from the keyboard.
  */
-public class TextMessage extends Message {
+public class TextMessage extends Message {    /**
+    /*
+     * The text content of the message.
+     */
     private final String text;
 
     /**
