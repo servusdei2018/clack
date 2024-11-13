@@ -7,17 +7,8 @@ import java.util.HashSet;
  *
  * <p>The Caesar cipher is a substitution cipher where each letter in the plaintext is shifted a fixed number of places
  * down or up the alphabet. This class provides methods for both encryption and decryption based on this technique.
- *
- * <p>To avoid code duplication between encryption and decryption, the actual character shifting is handled by the
- * {@code transform} method. Encryption is achieved by applying a positive shift (specified by the key), while decryption
- * is achieved by applying a negative shift. For detailed implementation, refer to the {@link #transform(String, int)
- * transform} method.
  */
-public class CaesarCipher {
-    // Default alphabet used for encryption/decryption
-    protected static final String DEFAULT_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    private final String alphabet;
+public class CaesarCipher extends CharacterCipher {
     private final int key;
 
     /**
@@ -27,88 +18,62 @@ public class CaesarCipher {
      *            the alphabet to ensure it falls within the valid range.
      */
     public CaesarCipher(int key) {
-        this(key, DEFAULT_ALPHABET);
+        this.key = key % ALPHABET.length();
     }
 
     /**
-     * Constructs a {@code CaesarCipher} with the specified key and custom alphabet.
+     * Constructs a {@code CaesarCipher} where the shift is given by taking the key's first letter, then finding the
+     * location of this letter in {@code ALPHABET}.
      *
-     * @param key      the number of positions each letter in the plaintext is shifted. This value is modulo the length
-     *                 of the alphabet to ensure it falls within the valid range.
-     * @param alphabet the custom alphabet used for the cipher. This should be a string containing unique characters.
-     *                 It is converted to uppercase for consistency.
+     * @param key the string whose first letter determines the shift.
      */
-    public CaesarCipher(int key, String alphabet) {
-        if (alphabet == null || alphabet.isEmpty()) {
-            throw new IllegalArgumentException("empty alphabet not allowed");
+    public CaesarCipher(String key) {
+        if (key == null || key.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Need a non-null, non-empty string");
         }
-        if (key == 0) {
-            throw new IllegalArgumentException("key of zero not allowed");
+        char shiftChar = key.charAt(0);
+        this.key = ALPHABET.indexOf(shiftChar);
+        if (this.key < 0) {
+            throw new IllegalArgumentException(
+                    "First character of 'key' argument not in ALPHABET");
         }
-
-        // Check for duplicate characters in the alphabet
-        HashSet<Character> charSet = new HashSet<>();
-        for (char c : alphabet.toCharArray()) {
-            if (!charSet.add(c)) {
-                throw new IllegalArgumentException("duplicate chars in alphabet");
-            }
-        }
-
-        this.key = key % alphabet.length(); // Handle key larger than alphabet length
-        this.alphabet = alphabet;
     }
 
     /**
-     * Returns the alphabet used for encryption and decryption.
+     * Prepare cleartext for encrypting. At minimum this requires
+     * removing spaces, punctuation, and non-alphabetic characters,
+     * then uppercasing what's left.
      *
-     * @return the alphabet used by this cipher.
+     * @param cleartext
+     * @return a version of the cleartext ready for encrypting.
      */
-    public String getAlphabet() {
-        return alphabet;
+    @Override
+    String prep(String cleartext) {
+        return cleartext.replaceAll("[^A-Z]", "").toUpperCase();
     }
 
     /**
-     * Encrypts the specified clear text using the Caesar cipher.
+     * Encrypt a string that's been prepared for encryption.
      *
-     * @param clearText the text to be encrypted. Non-alphabetic characters are unchanged.
-     * @return the encrypted text where each letter is shifted by the cipher's key value.
+     * @param preptext a version of a cleartext string, prepared
+     *                 for encryption.
+     * @return the encryption of the preptext.
      */
-    public String encrypt(String clearText) {
-        return transform(clearText, key);
+    @Override
+    String encrypt(String preptext) {
+        return CharacterCipher.shift(preptext, key);
     }
 
     /**
-     * Decrypts the specified cipher text using the Caesar cipher.
+     * Decrypts an encrypted string. The decrypted text should match
+     * the preptext that was encrypted.
      *
-     * @param clearText the text to be decrypted. Non-alphabetic characters are unchanged.
-     * @return the decrypted text where each letter is shifted back by the cipher's key value.
+     * @param ciphertext the encrypted string to decrypt.
+     * @return the decryption of the ciphertext.
      */
-    public String decrypt(String clearText) {
-        return transform(clearText, -key);
-    }
-
-
-    /**
-     * Transforms the given text by shifting characters according to the specified shift value.
-     *
-     * @param text  the text to be transformed. Non-alphabetic characters are unchanged.
-     * @param shift the number of positions to shift each letter. Positive for encryption, negative for decryption.
-     * @return the transformed text after applying the shift.
-     */
-    private String transform(String text, int shift) {
-        StringBuilder transformed = new StringBuilder();
-        int alphabetLength = alphabet.length();
-
-        for (char c : text.toCharArray()) {
-            int index = alphabet.indexOf(c);
-            if (index >= 0) {
-                int newIndex = (index + shift + alphabetLength) % alphabetLength;
-                transformed.append(alphabet.charAt(newIndex));
-            } else {
-                transformed.append(c); // Non-alphabet characters are not changed
-            }
-        }
-
-        return transformed.toString();
+    @Override
+    String decrypt(String ciphertext) {
+        return CharacterCipher.shift(ciphertext, -key);
     }
 }
