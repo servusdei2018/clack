@@ -118,6 +118,7 @@ public class Client {
             inMsg = (Message) inObj.readObject();
             System.out.println(
                     switch (inMsg.getMsgType()) {
+                        case FILE -> "UNEXPECTED RESPONSE: " + inMsg;
                         case HELP -> "UNEXPECTED RESPONSE: " + inMsg;
                         case LISTUSERS -> "UNEXPECTED RESPONSE: " + inMsg;
                         case LOGIN -> "UNEXPECTED RESPONSE: " + inMsg;

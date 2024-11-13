@@ -5,6 +5,11 @@ package sparta.clack.message;
  */
 public enum MsgType {
     /**
+     * Represents a message containing a file.
+     */
+    FILE,
+
+    /**
      * Represents a message requesting usage information.
      */
     HELP,

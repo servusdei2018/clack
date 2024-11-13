@@ -100,6 +100,7 @@ public class Server {
 
                         // Process the received message
                         outMsg = switch (inMsg.getMsgType()) {
+                            case MsgType.FILE -> null; //FIXME
                             case MsgType.HELP -> null; //FIXME
                             case MsgType.LISTUSERS -> new TextMessage(serverName, "LISTUSERS requested");
                             case MsgType.LOGIN -> null; //FIXME
