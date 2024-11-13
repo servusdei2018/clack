@@ -14,7 +14,6 @@ import java.util.Arrays;
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
 public class FileMessage extends Message {
-
     private String filePath;
     private String fileSaveAsName;
     private String fileContents;
@@ -146,8 +145,6 @@ public class FileMessage extends Message {
     /**
      * Returns a string representation of this TextMessage object.
      * <p>
-     *
-     *
      * The format of the string is:
      * <pre>
      * {class=FileMessage|super.toString()|filePath=file-path|fileSaveAsName=file-save-as-name|fileContents=file-contents}
@@ -170,6 +167,15 @@ public class FileMessage extends Message {
                 super.toString(), filePath, fileSaveAsName, fileContents);
     }
 
+    /**
+     * Equality comparison. Returns true iff the other object is of
+     * the same class and all fields (including those inherited from
+     * superclasses) are equal.
+     *
+     * @param o the object to test for equality.
+     * @return whether o is of the same class as this, and all fields
+     * are equal.
+     */
     @Override
     public boolean equals(Object o) {
         // Guard against nulls
@@ -186,6 +192,12 @@ public class FileMessage extends Message {
         return Arrays.equals(this.getData(), obj.getData());
     }
 
+    /**
+     * Return this object's hash. In Message objects, this is simply the
+     * hash of the string returned by this.toString().
+     *
+     * @return hash of this object.
+     */
     @Override
     public int hashCode() {
         return this.toString().hashCode();

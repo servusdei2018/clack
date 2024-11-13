@@ -1,6 +1,5 @@
 package sparta.clack.message;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -9,10 +8,29 @@ import java.time.LocalDateTime;
  * @author D. Tuinstra, adapted from work by Soumyabrata Dey.
  */
 public abstract class Message {
+    /**
+     * Message type constant for encryption messages.
+     */
     public static int MSGTYPE_ENCRYPTION = 0;
+
+    /**
+     * Message type constant for file messages.
+     */
     public static int MSGTYPE_FILE = 10;
+
+    /**
+     * Message type constant for listing users.
+     */
     public static int MSGTYPE_LISTUSERS = 20;
+
+    /**
+     * Message type constant for logout messages.
+     */
     public static int MSGTYPE_LOGOUT = 30;
+
+    /**
+     * Message type constant for text messages.
+     */
     public static int MSGTYPE_TEXT = 40;
 
     private final int msgType;
