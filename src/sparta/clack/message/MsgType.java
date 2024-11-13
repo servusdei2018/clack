@@ -5,6 +5,11 @@ package sparta.clack.message;
  */
 public enum MsgType {
     /**
+     * Represents a message requesting usage information.
+     */
+    HELP,
+
+    /**
      * Represents a message that requests a list of users.
      */
     LISTUSERS,
