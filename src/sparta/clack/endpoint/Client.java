@@ -1,179 +1,135 @@
 package sparta.clack.endpoint;
 
-import sparta.clack.message.Message;
-import sparta.clack.message.FileMessage;
-import sparta.clack.message.TextMessage;
+import sparta.clack.message.*;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 /**
  * Represents a client that connects to a server for sending and receiving messages.
- * The client can be configured with a username, server name, and server port.
- * It provides functionality to start a REPL (Read-Eval-Print Loop) for user interaction,
- * read user input, and print messages.
  * <p>
- * The client uses a {@code Scanner} object to read user input from the console and
- * creates {@code Message} objects based on that input.
- * </p>
+ * To begin a conversation, a client connects to the server and waits for the server to send the first Message.
+ * <p>
+ * The conversation ends when the client sends a LogoutMessage.
+ * The server replies with a last TextMessage, closes the connection, and waits for a new connection.
  */
 public class Client {
     /**
-     * Default port for connecting to server. This should be
-     * a port li sted as "unassigned" in
-     * <a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.txt">IANA</a>.
+     * The default username for the client when no username is specified.
      */
-    public static final int DEFAULT_SERVER_PORT = 0; //TODO: choose an unassigned port (NOT 0!!)
+    public static final String DEFAULT_USERNAME = "client";
 
-    /**
-     * The default server name to connect to if one is not explicitly provided.
-     * The default value is "localhost", which indicates that the client will connect
-     * to the local machine.
-     */
-    public static final String DEFAULT_SERVER_NAME = "localhost";
-
+    private final String hostname;
+    private final int port;
+    private final String prompt;
     private final String username;
-    private final String serverName;
-    private final int serverPort;
-    private final String saveDirectory = System.getProperty("user.dir");
-    private Message messageToSend;
-    private Message messageReceived;
 
     /**
-     * A {@code Scanner} object used to read input from the standard input (stdin).
-     * This field facilitates reading user input, such as commands or messages, from the console.
-     */
-    private final Scanner scanner = new Scanner(System.in);
-
-    /**
-     * Constructs a {@code Client} with the specified username, server name, and server port.
+     * Creates a client for exchanging Message objects.
      *
-     * @param username   the username of the client
-     * @param serverName the name of the server to connect to
-     * @param serverPort the port of the server to connect to
+     * @param hostname the hostname of the server.
+     * @param port     the service's port on the server.
+     * @param username username to include in Messages.
+     * @throws IllegalArgumentException if port not in range [1-49151]
      */
-    public Client(String username, String serverName, int serverPort) {
-        this.username = username;
-        this.serverName = serverName;
-        this.serverPort = serverPort;
-    }
-
-    /**
-     * Constructs a {@code Client} with the specified username and the default server name and port.
-     *
-     * @param username   the username of the client
-     * @param serverName the name of the server to connect to
-     */
-    public Client(String username, String serverName) {
-        this(username, serverName, DEFAULT_SERVER_PORT);
-    }
-
-    /**
-     * Constructs a {@code Client} with the specified username and server port, and the default server name.
-     *
-     * @param username   the username of the client
-     * @param serverPort the port of the server to connect to
-     */
-    public Client(String username, int serverPort) {
-        this(username, DEFAULT_SERVER_NAME, serverPort);
-    }
-
-    /**
-     * Constructs a {@code Client} with the specified username, and default server name and port.
-     *
-     * @param username the username of the client
-     */
-    public Client(String username) {
-        this(username, DEFAULT_SERVER_NAME, DEFAULT_SERVER_PORT);
-    }
-
-    /**
-     * The client's REPL loop. Prompt for input, build
-     * message from it, send message and receive/process
-     * the reply, print info for user; repeat until
-     * user enters "LOGOUT".
-     */
-    public void start() {
-        while (true) {
-            Message message = readUserInput();
-            if (message.toString().equals("LOGOUT")) {
-                break;
-            }
-
-            this.messageReceived = messageToSend;
-            this.printMessage();
-
-            if (this.messageReceived instanceof FileMessage) {
-                System.out.print("Enter filename to save the file: ");
-                String filename = this.scanner.nextLine();
-                try {
-                    ((FileMessage) this.messageReceived).writeFile();
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+    public Client(String hostname, int port, String username) {
+        if (port < 1 || port > 49151) {
+            throw new IllegalArgumentException(
+                    "Port " + port + " not in range 1 - 49151.");
         }
+        this.hostname = hostname;
+        this.port = port;
+        this.username = username;
+        this.prompt = "hostname:" + port + "> ";
     }
 
     /**
-     * Parse the line of user input and create the appropriate
-     * message.
+     * Creates a client for exchanging Message objects, using the
+     * default username (Client.DEFAULT_USERNAME).
      *
-     * @return an object of the appropriate Message subclass.
+     * @param hostname the hostname of the server.
+     * @param port     the service's port on the server.
+     * @throws IllegalArgumentException if port not in range [1-49151]
      */
-    public Message readUserInput() {
-        return new TextMessage(this.username, this.scanner.nextLine());
+    public Client(String hostname, int port) {
+        this(hostname, port, DEFAULT_USERNAME);
     }
 
     /**
-     * Print the current messageReceived object to System.out.
-     * What is printed is the result of calling toString()
-     * on the messageReceived object.
-     */
-    public void printMessage() {
-        System.out.println(this.messageReceived.toString());
-    }
-
-    /**
-     * Returns the username of this client.
+     * Starts this client, connecting to the server and port that
+     * it was given when constructed.
      *
-     * @return the username of the client
+     * @throws UnknownHostException if hostname is not resolvable.
+     * @throws IOException          if socket creation, wrapping, or IO fails.
      */
-    public String getUsername() {
-        return this.username;
-    }
+    public void start() throws UnknownHostException, IOException, ClassNotFoundException {
+        System.out.println("Attempting connection to " + hostname + ":" + port);
+        Scanner keyboard = new Scanner(System.in);
 
-    /**
-     * Returns the server name that this client is connected to.
-     *
-     * @return the server name of the client
-     */
-    public String getServerName() {
-        return this.serverName;
-    }
+        try (
+                Socket socket = new Socket(hostname, port);
+                ObjectInputStream inObj = new ObjectInputStream(socket.getInputStream());
+                ObjectOutputStream outObj = new ObjectOutputStream(socket.getOutputStream())
+        )
+        {
+            String userInput;
+            Message inMsg;
+            Message outMsg;
 
-    /**
-     * Returns a string representation of this {@code Client} object.
-     * The string representation includes the class name, default server name and port,
-     * and the values of the username, server name, server port, the message to send, and
-     * the message received.
-     * <p>
-     * The format of the returned string is:
-     * <pre>
-     * {class=Client|DEFAULT_SERVER_NAME=<defaultServerName>|DEFAULT_SERVER_PORT=<defaultServerPort>|username=<username>|serverName=<serverName>|serverPort=<serverPort>|messageToSend={<messageToSend>}|messageReceived={<messageReceived>}}
-     * </pre>
-     *
-     * @return a string representation of this {@code Client} object
-     */
-    public String toString() {
-        return "{class=Client|"
-                + "|DEFAULT_SERVER_NAME=" + DEFAULT_SERVER_NAME
-                + "|DEFAULT_SERVER_PORT=" + DEFAULT_SERVER_PORT
-                + "|username=" + this.username
-                + "|serverName=" + this.serverName
-                + "|serverPort=" + this.serverPort
-                + "|messageToSend={" + this.messageToSend.toString() + "}"
-                + "|messageReceived={" + this.messageReceived.toString() + "}"
-                + "}";
+            // Take turns talking. Server goes first.
+            do {
+                // Get server message and show it to user.
+                inMsg = (Message) inObj.readObject();
+                switch (inMsg.getMsgType()) {
+                    case LISTUSERS:
+                        System.out.println("Server sent a user list: " + inMsg);
+                        break;
+                    case TEXT:
+                        System.out.println(((TextMessage) inMsg).getText());
+                        break;
+                    case LOGOUT:
+                        System.out.println("Server sent logout message: " + inMsg);
+                        break;
+                    default:
+                        System.out.println("Unexpected message type: " + inMsg);
+                        break;
+                }
+
+                // Get user input
+                System.out.print(prompt);
+                userInput = keyboard.nextLine();
+                String[] tokens = userInput.trim().split("\\s+");
+
+                switch (tokens[0].toUpperCase()) {
+                    case "LOGOUT":
+                        outMsg = new LogoutMessage(username);
+                        break;
+                    case "LISTUSERS":
+                        outMsg = new ListUsersMessage(username);
+                        break;
+                    default:
+                        outMsg = new TextMessage(username, userInput);
+                        break;
+                }
+
+                // Send to server
+                outObj.writeObject(outMsg);
+            } while (outMsg.getMsgType() != MsgType.LOGOUT);
+
+            // Get server's closing reply and show it to user
+            inMsg = (Message) inObj.readObject();
+            System.out.println(
+                    switch (inMsg.getMsgType()) {
+                        case LISTUSERS -> "UNEXPECTED RESPONSE: " + inMsg;
+                        case LOGOUT -> "UNEXPECTED RESPONSE: " + inMsg;
+                        case TEXT -> ((TextMessage) inMsg).getText();
+                    });
+        }
+
+        System.out.println("Connection to " + hostname + ":" + port + " closed, exiting.");
     }
 }

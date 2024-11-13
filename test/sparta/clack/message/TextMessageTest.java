@@ -9,20 +9,20 @@ import java.time.Instant;
 import static java.time.Duration.between;
 import static org.junit.jupiter.api.Assertions.*;
 
-class ListUsersMessageTest {
-    ListUsersMessage msg;
+class TextMessageTest {
+    TextMessage msg;
     Instant now;
 
     final String USERNAME = "the user";
 
     @BeforeEach
     void setUp() {
-        msg = new ListUsersMessage(USERNAME);
+        msg = new TextMessage(USERNAME, "TEST");
     }
 
     @Test
     void getMsgType() {
-        assertEquals(MsgType.LISTUSERS, msg.getMsgType());
+        assertEquals(MsgType.TEXT, msg.getMsgType());
     }
 
     @Test
