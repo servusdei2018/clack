@@ -12,6 +12,7 @@ public abstract class CharacterCipher {
      * <em>n</em> non-whitespace characters, with groups separated
      * by a space. The last group may have fewer than <em>n</em>
      * characters.
+     *
      * @param str the string to break into groups
      * @param n how many characters in each group
      * @return the grouped version of the argument string
@@ -34,6 +35,7 @@ public abstract class CharacterCipher {
      * with wrap around at the end of ALPHABET. Negative values are
      * allowed and cause a shift to the left. A shift of 0 returns
      * the original character.
+     *
      * @param c the character to shift.
      * @param n the number of places to shift the character.
      * @return the character at the location n places beyond c.
@@ -54,6 +56,7 @@ public abstract class CharacterCipher {
     /**
      * Returns the string resulting from shifting each character of str
      * by n places.
+     *
      * @param str the string to shift.
      * @param n the amount to shift each letter.
      * @return the shifted version of str.
@@ -71,6 +74,7 @@ public abstract class CharacterCipher {
      * removing spaces, punctuation, and non-alphabetic characters,
      * then uppercasing what's left. Other cipers, such as PLAYFAIR,
      * may have additional preparation that this method needs to do.
+     *
      * @param cleartext
      * @return a version of the cleartext ready for encrypting.
      */
@@ -78,6 +82,7 @@ public abstract class CharacterCipher {
 
     /**
      * Encrypt a string that's been prepared for encryption.
+     *
      * @param preptext a version of a cleartext string, prepared
      *                 for encryption.
      * @return the encryption of the preptext.
@@ -87,6 +92,7 @@ public abstract class CharacterCipher {
     /**
      * Decrypts an encrypted string. The decrypted text should match
      * the preptext that was encrypted.
+     *
      * @param ciphertext the encrypted string to decrypt.
      * @return the decryption of the ciphertext.
      */

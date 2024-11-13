@@ -1,7 +1,5 @@
 package sparta.clack.cipher;
 
-import java.util.HashSet;
-
 /**
  * The {@code CaesarCipher} class implements encryption and decryption using the Caesar cipher technique.
  *
@@ -41,11 +39,10 @@ public class CaesarCipher extends CharacterCipher {
     }
 
     /**
-     * Prepare cleartext for encrypting. At minimum this requires
-     * removing spaces, punctuation, and non-alphabetic characters,
-     * then uppercasing what's left.
+     * Prepare cleartext for encrypting. This involves removing spaces, punctuation, and non-alphabetic characters,
+     * and uppercasing the remaining letters.
      *
-     * @param cleartext
+     * @param cleartext the plaintext to prepare for encryption.
      * @return a version of the cleartext ready for encrypting.
      */
     @Override
@@ -56,8 +53,7 @@ public class CaesarCipher extends CharacterCipher {
     /**
      * Encrypt a string that's been prepared for encryption.
      *
-     * @param preptext a version of a cleartext string, prepared
-     *                 for encryption.
+     * @param preptext a version of a cleartext string, prepared for encryption.
      * @return the encryption of the preptext.
      */
     @Override
@@ -66,8 +62,7 @@ public class CaesarCipher extends CharacterCipher {
     }
 
     /**
-     * Decrypts an encrypted string. The decrypted text should match
-     * the preptext that was encrypted.
+     * Decrypts an encrypted string. The decrypted text should match the preptext that was encrypted.
      *
      * @param ciphertext the encrypted string to decrypt.
      * @return the decryption of the ciphertext.
