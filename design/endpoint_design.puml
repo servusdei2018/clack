@@ -35,8 +35,8 @@ package sparta.clack.endpoint {
         + Client(username)
         + start() : void
         + readUserInput() : Message
-    '   + sendMessage() : void
-    '   + receiveMessage() : void
+        + sendMessage() : void
+        + receiveMessage() : void
         + printMessage() : void
         + getUsername() : String
         + getServerName() : String
