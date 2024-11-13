@@ -72,6 +72,7 @@ package sparta.clack.message{
     class LoginMessage {
         - password : String <<final>>
         + LoginMessage(username, password)
+        + getPassword() : String
     }
 
     class LogoutMessage {

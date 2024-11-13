@@ -104,17 +104,11 @@ public class Client {
                 userInput = keyboard.nextLine();
                 String[] tokens = userInput.trim().split("\\s+");
 
-                switch (tokens[0].toUpperCase()) {
-                    case "LOGOUT":
-                        outMsg = new LogoutMessage(username);
-                        break;
-                    case "LISTUSERS":
-                        outMsg = new ListUsersMessage(username);
-                        break;
-                    default:
-                        outMsg = new TextMessage(username, userInput);
-                        break;
-                }
+                outMsg = switch (tokens[0].toUpperCase()) {
+                    case "LOGOUT" -> new LogoutMessage(username);
+                    case "LISTUSERS" -> new ListUsersMessage(username);
+                    default -> new TextMessage(username, userInput);
+                };
 
                 // Send to server
                 outObj.writeObject(outMsg);
@@ -124,7 +118,9 @@ public class Client {
             inMsg = (Message) inObj.readObject();
             System.out.println(
                     switch (inMsg.getMsgType()) {
+                        case HELP -> "UNEXPECTED RESPONSE: " + inMsg;
                         case LISTUSERS -> "UNEXPECTED RESPONSE: " + inMsg;
+                        case LOGIN -> "UNEXPECTED RESPONSE: " + inMsg;
                         case LOGOUT -> "UNEXPECTED RESPONSE: " + inMsg;
                         case TEXT -> ((TextMessage) inMsg).getText();
                     });

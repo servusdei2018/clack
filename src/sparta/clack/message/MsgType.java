@@ -15,6 +15,11 @@ public enum MsgType {
     LISTUSERS,
 
     /**
+     * Represents a message containing login credentials; i.e. username and password.
+     */
+    LOGIN,
+
+    /**
      * Represents a message that signals the logout action, ending a session.
      */
     LOGOUT,
