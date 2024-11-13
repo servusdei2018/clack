@@ -25,6 +25,11 @@ public enum MsgType {
     LOGOUT,
 
     /**
+     * Represents a message containing an option and its associated value.
+     */
+    OPTION,
+
+    /**
      * Represents a regular text message containing user input.
      */
     TEXT

@@ -10,7 +10,6 @@ import static java.time.Duration.between;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HelpMessageTest {
-
     HelpMessage msg;
     Instant now;
 

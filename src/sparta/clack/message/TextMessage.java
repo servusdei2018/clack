@@ -38,7 +38,7 @@ public class TextMessage extends Message {    /**
     public String toString() {
         return "TextMessage{"
                 + super.toString()
-                + ",text='" + text + '\'' +
+                + ", text='" + text + '\'' +
                 '}';
     }
 }

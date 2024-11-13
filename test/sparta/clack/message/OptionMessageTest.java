@@ -9,21 +9,22 @@ import java.time.Instant;
 import static java.time.Duration.between;
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginMessageTest {
-    LoginMessage msg;
+class OptionMessageTest {
+    OptionMessage msg;
     Instant now;
 
     final String USERNAME = "the user";
-    final String PASSWORD = "goldenKnights123";
+    final OptionEnum OPTION = OptionEnum.CIPHER_KEY;
+    final String VALUE = "12345";
 
     @BeforeEach
     void setUp() {
-        msg = new LoginMessage(USERNAME, PASSWORD);
+        msg = new OptionMessage(USERNAME, OPTION, VALUE);
     }
 
     @Test
     void getMsgType() {
-        assertEquals(MsgType.LOGIN, msg.getMsgType());
+        assertEquals(MsgType.OPTION, msg.getMsgType());
     }
 
     @Test
@@ -35,12 +36,17 @@ class LoginMessageTest {
     }
 
     @Test
-    void getUsername() {
-        assertEquals(USERNAME, msg.getUsername());
+    void testGetOption() {
+        assertEquals(OPTION, msg.getOption(), "The option should be CIPHER_KEY.");
     }
 
     @Test
-    void getPassword() {
-        assertEquals(PASSWORD, msg.getPassword());
+    void testGetUsername() {
+        assertEquals(USERNAME, msg.getUsername(), "The username should be 'testUser'.");
+    }
+
+    @Test
+    void testGetValue() {
+        assertEquals(VALUE, msg.getValue(), "The value should be 12345.");
     }
 }

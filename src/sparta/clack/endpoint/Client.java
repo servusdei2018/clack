@@ -122,6 +122,7 @@ public class Client {
                         case LISTUSERS -> "UNEXPECTED RESPONSE: " + inMsg;
                         case LOGIN -> "UNEXPECTED RESPONSE: " + inMsg;
                         case LOGOUT -> "UNEXPECTED RESPONSE: " + inMsg;
+                        case OPTION -> "UNEXPECTED RESPONSE: " + inMsg;
                         case TEXT -> ((TextMessage) inMsg).getText();
                     });
         }
