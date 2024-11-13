@@ -1,7 +1,7 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-package YOUR_TEAM_NAME.clack.endpoint {
+package sparta.clack.endpoint {
 /'
     Endpoint <|-- Client
     Endpoint <|-- Server
@@ -43,14 +43,12 @@ package YOUR_TEAM_NAME.clack.endpoint {
         + toString() : String
     }
 
-    /'
-    class YOUR_TEAM_NAME.clack.endpoint.Server {
+    class sparta.clack.endpoint.Server {
         + Server(port)
         + Server()
         + int hashCode()
         + boolean equals()
         + String toString()
     }
-    '/
 }
 @enduml
