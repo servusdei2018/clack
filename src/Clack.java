@@ -1,5 +1,6 @@
 import sparta.clack.endpoint.Client;
 import sparta.clack.endpoint.Server;
+import sparta.clack.ui.ClientUI;
 
 /**
  * Main program. Based on command-line arguments (see USAGE string), creates and starts either a client or a server.
@@ -36,7 +37,7 @@ public class Clack {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        if (args.length < 2 || args.length > 3) {
+        if (args.length < 1 || args.length > 3) { //FIXME(Nate): change to args.length < 2 after ui mode removed
             System.err.println(USAGE);
             return;
         }
@@ -47,6 +48,9 @@ public class Clack {
                 startServer(args[1]);
             } else if ("client".equals(mode) && args.length == 3) {
                 startClient(args[1], args[2]);
+            } else if ("ui".equals(mode) && args.length == 1) { //FIXME(Nate): remove this after ui transition
+                ClientUI clientUI = new ClientUI();
+                clientUI.run();
             } else {
                 System.err.println(USAGE);
             }
