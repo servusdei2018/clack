@@ -10,6 +10,11 @@ public enum CipherEnum {
     CAESAR,
 
     /**
+     * Represents the Playfair cipher algorithm.
+     */
+    PLAYFAIR,
+
+    /**
      * Represents the Vigenère cipher algorithm.
      */
     VIGNERE;
