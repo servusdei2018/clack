@@ -36,4 +36,13 @@ class CaesarCipherTest {
         assertEquals(cc.prep("THE QUICK BROWN FOX JUMPED OVER THE LAZY POODLE"),
                 cc.decrypt(msg));
     }
+
+    @Test
+    void testEdgeCases() {
+        CaesarCipher cc = new CaesarCipher(1);
+        assertEquals("", cc.decrypt(""));
+
+        String singleCharEncrypted = cc.encrypt("A");
+        assertNotNull(singleCharEncrypted);
+    }
 }

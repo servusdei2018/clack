@@ -37,4 +37,13 @@ class VignereCipherTest {
         assertEquals(vc.prep("THE QUICK BROWN FOX JUMPED OVER THE LAZY POODLE"),
                 vc.decrypt(msg));
     }
+
+    @Test
+    void testEdgeCases() {
+        VignereCipher vc = new VignereCipher("KEY");
+        assertEquals("", vc.decrypt(""));
+
+        String singleCharEncrypted = vc.encrypt("A");
+        assertNotNull(singleCharEncrypted);
+    }
 }
