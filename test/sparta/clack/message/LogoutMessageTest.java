@@ -37,4 +37,18 @@ class LogoutMessageTest {
     void getUsername() {
         assertEquals(USERNAME, msg.getUsername());
     }
+
+    @Test
+    void testToString() {
+        LogoutMessage lm = new LogoutMessage("user");
+        String expected = "LogoutMessage{"
+                + "Message{msgTypeEnum=LOGOUT"
+                + ", timestamp=omitted"
+                + ", username='user'"
+                + "}}";
+        String actual = lm.toString().replaceFirst(
+                "timestamp=.*, username=",
+                "timestamp=omitted, username=");
+        assertEquals(expected, actual);
+    }
 }

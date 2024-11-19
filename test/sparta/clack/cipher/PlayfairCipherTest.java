@@ -6,16 +6,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayfairCipherTest {
 
     @Test
+    void testConstructor() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new PlayfairCipher(null));
+        assertDoesNotThrow(() -> new PlayfairCipher(""));
+        assertDoesNotThrow(() -> new PlayfairCipher(" "));
+        assertDoesNotThrow(() -> new PlayfairCipher("A"));
+        assertDoesNotThrow(() -> new PlayfairCipher("James T. Kirk, Captain"));
+    }
+
+    @Test
     void badConstructorArgs() {
         Exception e;
 
         e = assertThrows(IllegalArgumentException.class,
                 () -> new PlayfairCipher(null));
-        assertEquals("Need a non-null, non-empty string", e.getMessage());
-
-        e = assertThrows(IllegalArgumentException.class,
-                () -> new PlayfairCipher(""));
-        assertEquals("Need a non-null, non-empty string", e.getMessage());
+        assertEquals("key must be a non-null string", e.getMessage());
 
         PlayfairCipher pf = new PlayfairCipher("KEY123");
         assertNotNull(pf); // Should not throw any exception, non-alphabet characters will be ignored

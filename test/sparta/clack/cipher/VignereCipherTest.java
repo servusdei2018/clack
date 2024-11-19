@@ -23,6 +23,24 @@ class VignereCipherTest {
     }
 
     @Test
+    void testConstructor() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new VignereCipher(null));
+        assertThrows(IllegalArgumentException.class,
+                () -> new VignereCipher(""));
+        assertThrows(IllegalArgumentException.class,
+                () -> new VignereCipher("AB CD"));
+        assertThrows(IllegalArgumentException.class,
+                () -> new VignereCipher("ABcD"));
+        assertDoesNotThrow(() -> new VignereCipher("A"));
+        assertDoesNotThrow(() -> new VignereCipher("AA"));
+        assertDoesNotThrow(() -> new VignereCipher("ABC"));
+        assertDoesNotThrow(() -> new VignereCipher("Z"));
+        assertDoesNotThrow(() -> new VignereCipher("XYZ"));
+        assertDoesNotThrow(() -> new VignereCipher(CharacterCipher.ALPHABET + CharacterCipher.ALPHABET));
+    }
+
+    @Test
     void encrypt() {
         String msg = "THE QUICK BROWN FOX JUMPED OVER THE LAZY POODLE";
         VignereCipher vc = new VignereCipher("KEY");

@@ -37,4 +37,18 @@ class ListUsersMessageTest {
     void getUsername() {
         assertEquals(USERNAME, msg.getUsername());
     }
+
+    @Test
+    void testToString() {
+        ListUsersMessage lm = new ListUsersMessage("user");
+        String expected = "ListUsersMessage{"
+                + "Message{msgTypeEnum=LISTUSERS"
+                + ", timestamp=omitted"
+                + ", username='user'"
+                + "}}";
+        String actual = lm.toString().replaceFirst(
+                "timestamp=.*, username=",
+                "timestamp=omitted, username=");
+        assertEquals(expected, actual);
+    }
 }

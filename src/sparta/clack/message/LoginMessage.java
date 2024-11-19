@@ -38,7 +38,7 @@ public class LoginMessage extends Message {
     public String toString() {
         return "LoginMessage{"
                 + super.toString()
-                + ", password='" + password + '\'' +
+                + ", password='" + "*".repeat(password.length()) + '\'' +
                 '}';
     }
 }

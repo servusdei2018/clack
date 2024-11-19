@@ -46,7 +46,7 @@ public class FileMessage extends Message {
      */
     public FileMessage(String username, String fileReadPath, String fileSaveName) throws IOException {
         super(username, MsgType.FILE);
-        this.fileName = fileSaveName;
+        this.fileName = Paths.get(fileSaveName).getFileName().toString();
         this.fileContents = new String(Files.readAllBytes(Paths.get(fileReadPath)));
     }
 
@@ -77,8 +77,8 @@ public class FileMessage extends Message {
     public String toString() {
         return "FileMessage{"
                 + super.toString()
-                + ", fileName='" + fileName + '\''
-                + ", fileContents=" + (fileContents.length() > 50 ? fileContents.substring(0, 50) + "..." : fileContents)
-                + '}';
+                + ", fileName='" + fileName + "'"
+                + ", fileContents='" + fileContents
+                + "'}";
     }
 }

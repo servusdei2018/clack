@@ -19,8 +19,15 @@ public abstract class CharacterCipher {
      * @param str the string to break into groups
      * @param n how many characters in each group
      * @return the grouped version of the argument string
+     * @throws IllegalArgumentException if the input string is null
      */
     public static String group(String str, int n) {
+        if (n < 1) {
+            throw new IllegalArgumentException("n cannot be less than 1.");
+        }
+        if (str == null) {
+            return null;
+        }
         str = str.replaceAll("[^A-Za-z]", "").toUpperCase();
         StringBuilder groupedString = new StringBuilder();
         for (int i = 0; i < str.length(); i += n) {
@@ -63,6 +70,9 @@ public abstract class CharacterCipher {
      * @throws IllegalArgumentException if any character in the string is not in {@code ALPHABET}.
      */
     public static String shift(String str, int n) throws IllegalArgumentException {
+        if (str == null) {
+            return null;
+        }
         StringBuilder shiftedString = new StringBuilder();
         for (char c : str.toCharArray()) {
             shiftedString.append(shift(c, n));

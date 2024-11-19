@@ -73,7 +73,7 @@ public abstract class Message implements  Serializable {
     public String toString()
     {
         return "Message{" +
-                "msgType=" + msgType +
+                "msgTypeEnum=" + msgType +
                 ", timestamp=" + timestamp +
                 ", username='" + username + '\'' +
                 '}';

@@ -23,11 +23,14 @@ public class PlayfairCipher extends CharacterCipher {
      *
      * @param key the keyword used to generate the Playfair cipher matrix. It must not be empty or null.
      *            Only uppercase alphabetic characters are allowed in the key.
-     * @throws IllegalArgumentException if the key is null or empty.
+     * @throws IllegalArgumentException if the key is null.
      */
     public PlayfairCipher(String key) throws IllegalArgumentException {
-        if (key == null || key.isEmpty()) {
-            throw new IllegalArgumentException("Need a non-null, non-empty string");
+        if (key == null) {
+            throw new IllegalArgumentException("key must be a non-null string");
+        }
+        if (key.isEmpty()) {
+            key = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
         }
         this.key = key.toUpperCase().replaceAll("[^A-Z]", "");  // Keep only A-Z letters
     }
