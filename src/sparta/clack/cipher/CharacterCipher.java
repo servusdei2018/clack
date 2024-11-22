@@ -13,13 +13,45 @@ public abstract class CharacterCipher {
     public CharacterCipher() {}
 
     /**
-     * Return a copy of a string, but reformatted into groups of <em>n</em> non-whitespace characters, with groups
+     * Removes all non-alphabet characters from a string, and uppercases all remaining letters. This is a utility
+     * method, useful in implementing prep(). If the argument is null or empty, returns it as it is.
+     *
+     * @param str the string to clean
+     * @return the cleaned string (which might be empty), or null.
+     */
+    public static String clean(String str) {
+        if (str == null) {
+            return null;
+        }
+        return str.toUpperCase().replaceAll("[^A-Z]", "");
+    }
+
+    /**
+     * Mathematical "mod" operator. Use instead of Java's "%" operator when shifting leftward (a negative shift), as
+     * this will always return a number in the range [0, modulus).
+     *
+     * @param n       the number to be "modded".
+     * @param modulus the modulus.
+     * @throws IllegalArgumentException if modulus < 1.
+     */
+    public static int mod(int n, int modulus) {
+        if (modulus < 1) {
+            throw new IllegalArgumentException("modulus cannot be < 1");
+        }
+        // n % modulus -> in range (-modulus, modulus)
+        // (n % modulus) + modulus -> in (0, 2 * modulus)
+        // ((n % modulus) + modulus) % modulus -> in [0, modulus)
+        return ((n % modulus) + modulus) % modulus;
+    }
+
+    /**
+     * Returns a copy of a string, but reformatted into groups of <em>n</em> characters, with groups
      * separated by a space. The last group may have fewer than <em>n</em> characters.
      *
      * @param str the string to break into groups
      * @param n how many characters in each group
      * @return the grouped version of the argument string
-     * @throws IllegalArgumentException if the input string is null
+     * @throws IllegalArgumentException if the input string is null or if <em>n</em> is less than 1
      */
     public static String group(String str, int n) {
         if (n < 1) {
@@ -28,16 +60,16 @@ public abstract class CharacterCipher {
         if (str == null) {
             return null;
         }
-        str = str.replaceAll("[^A-Za-z]", "").toUpperCase();
         StringBuilder groupedString = new StringBuilder();
-        for (int i = 0; i < str.length(); i += n) {
-            if (i + n < str.length()) {
+        int length = str.length();
+        for (int i = 0; i < length; i += n) {
+            if (i + n < length) {
                 groupedString.append(str, i, i + n).append(" ");
             } else {
                 groupedString.append(str.substring(i));
             }
         }
-        return groupedString.toString().trim();
+        return groupedString.toString();
     }
 
     /**

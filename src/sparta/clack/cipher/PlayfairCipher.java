@@ -78,6 +78,9 @@ public class PlayfairCipher extends CharacterCipher {
      */
     @Override
     String encrypt(String preptext) {
+        if (preptext == null) {
+            return null;
+        }
         char[][] matrix = createMatrix();
         StringBuilder ciphertext = new StringBuilder();
         for (int i = 0; i < preptext.length(); i += 2) {

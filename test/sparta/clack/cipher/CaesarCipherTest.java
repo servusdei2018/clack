@@ -83,6 +83,20 @@ class CaesarCipherTest {
 
     }
 
+    /**
+     * Test prep(). Should behave exactly as CharacterCipher.clean().
+     */
+    @Test
+    void testPrep() {
+        CaesarCipher cc = new CaesarCipher(10);     // arbitrary key.
+        String[] testStrs = {
+                null, "", " ", " a ", " a b ", " a BbB c "
+        };
+        for (String ts : testStrs) {
+            assertEquals(CharacterCipher.clean(ts), cc.prep(ts));
+        }
+    }
+
     @Test
     void testEdgeCases() {
         CaesarCipher cc = new CaesarCipher(1);

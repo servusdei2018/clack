@@ -41,11 +41,22 @@ class VignereCipherTest {
     }
 
     @Test
+    void prep() {
+    }
+
+    @Test
     void encrypt() {
         String msg = "THE QUICK BROWN FOX JUMPED OVER THE LAZY POODLE";
         VignereCipher vc = new VignereCipher("KEY");
         assertEquals("DLCAYGMOZBSUXJMHNSWTCNSTOVRRIJKDWZSMNPC",
                 vc.encrypt(vc.prep(msg)));
+
+        vc = new VignereCipher(CharacterCipher.ALPHABET);
+        assertEquals(CharacterCipher.ALPHABET, vc.encrypt("A".repeat(CharacterCipher.ALPHABET.length())));
+
+        vc = new VignereCipher("EDGARALLANPOE");
+        assertEquals("XKKGFLOMUT", vc.encrypt("THEGOLDBUG"));
+        assertEquals("UXUTYTSPRNKSRRHBEIMZCE", vc.encrypt("QUOTHTHERAVENNEVERMORE"));
     }
 
     @Test
@@ -54,6 +65,14 @@ class VignereCipherTest {
         VignereCipher vc = new VignereCipher("KEY");
         assertEquals(vc.prep("THE QUICK BROWN FOX JUMPED OVER THE LAZY POODLE"),
                 vc.decrypt(msg));
+
+        vc = new VignereCipher(CharacterCipher.ALPHABET);
+        assertEquals("A".repeat(CharacterCipher.ALPHABET.length()), vc.decrypt(CharacterCipher.ALPHABET));
+
+        vc = new VignereCipher("EDGARALLANPOE");
+        assertEquals("THEGOLDBUG", vc.decrypt("XKKGFLOMUT"));
+        assertEquals("QUOTHTHERAVENNEVERMORE",
+                vc.decrypt("UXUTYTSPRNKSRRHBEIMZCE"));
     }
 
     @Test
