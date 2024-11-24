@@ -44,7 +44,7 @@ public class Client {
         this.hostname = hostname;
         this.port = port;
         this.username = username;
-        this.prompt = "hostname:" + port + "> ";
+        this.prompt = hostname + ":" + port + "> ";
     }
 
     /**
@@ -62,8 +62,8 @@ public class Client {
     /**
      * Starts this client, connecting to the server and port that it was given when constructed.
      *
-     * @throws UnknownHostException if the hostname cannot be resolved.
-     * @throws IOException if an I/O error occurs while communicating with the server.
+     * @throws UnknownHostException   if the hostname cannot be resolved.
+     * @throws IOException            if an I/O error occurs while communicating with the server.
      * @throws ClassNotFoundException if a received message's class cannot be found.
      */
     public void start() throws UnknownHostException, IOException, ClassNotFoundException {
@@ -73,26 +73,39 @@ public class Client {
         try (
                 Socket socket = new Socket(hostname, port);
                 ObjectInputStream inObj = new ObjectInputStream(socket.getInputStream());
-                ObjectOutputStream outObj = new ObjectOutputStream(socket.getOutputStream())
-        )
-        {
+                ObjectOutputStream outObj = new ObjectOutputStream(socket.getOutputStream());
+        ) {
             String userInput;
             Message inMsg;
             Message outMsg;
 
-            // Take turns talking. Server goes first.
+            // Login
+            boolean loggedIn = false;
+            while (!loggedIn) {
+                TextMessage response = (TextMessage) inObj.readObject();
+                System.out.println(response.getText());
+                if (response.getText().equals("Login successful.")) {
+                    loggedIn = true;
+                }
+                System.out.print("Enter login details (username password): ");
+                String loginDetails = keyboard.nextLine();
+                String[] loginTokens = loginDetails.split("\\s+");
+                if (loginTokens.length == 2) {
+                    outMsg = new TextMessage(username, "LOGIN " + loginTokens[0] + " " + loginTokens[1]);
+                } else {
+                    outMsg = new TextMessage(username, "Invalid LOGIN format. Please use: LOGIN <username> <password>");
+                }
+                outObj.writeObject(outMsg);
+                outObj.flush();
+            }
+
+            // Logged-in
             do {
                 // Get server message and show it to user.
                 inMsg = (Message) inObj.readObject();
                 switch (inMsg.getMsgType()) {
-                    case LISTUSERS:
-                        System.out.println("Server sent a user list: " + inMsg);
-                        break;
                     case TEXT:
                         System.out.println(((TextMessage) inMsg).getText());
-                        break;
-                    case LOGOUT:
-                        System.out.println("Server sent logout message: " + inMsg);
                         break;
                     default:
                         System.out.println("Unexpected message type: " + inMsg);
@@ -105,6 +118,7 @@ public class Client {
                 String[] tokens = userInput.trim().split("\\s+");
 
                 outMsg = switch (tokens[0].toUpperCase()) {
+                    case "HELP" -> new HelpMessage(username);
                     case "LOGOUT" -> new LogoutMessage(username);
                     case "LISTUSERS" -> new ListUsersMessage(username);
                     default -> new TextMessage(username, userInput);
@@ -112,20 +126,14 @@ public class Client {
 
                 // Send to server
                 outObj.writeObject(outMsg);
+                outObj.flush();
             } while (outMsg.getMsgType() != MsgType.LOGOUT);
 
             // Get server's closing reply and show it to user
             inMsg = (Message) inObj.readObject();
-            System.out.println(
-                    switch (inMsg.getMsgType()) {
-                        case FILE -> "UNEXPECTED RESPONSE: " + inMsg;
-                        case HELP -> "UNEXPECTED RESPONSE: " + inMsg;
-                        case LISTUSERS -> "UNEXPECTED RESPONSE: " + inMsg;
-                        case LOGIN -> "UNEXPECTED RESPONSE: " + inMsg;
-                        case LOGOUT -> "UNEXPECTED RESPONSE: " + inMsg;
-                        case OPTION -> "UNEXPECTED RESPONSE: " + inMsg;
-                        case TEXT -> ((TextMessage) inMsg).getText();
-                    });
+            System.out.println(((TextMessage) inMsg).getText());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         System.out.println("Connection to " + hostname + ":" + port + " closed, exiting.");

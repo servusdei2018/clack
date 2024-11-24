@@ -18,8 +18,11 @@ public class Clack {
             "Usage: java Clack client <server name> <server port>\n"
                     + "       java Clack server <server port>";
 
-    /** Create new instance of Clack. */
-    public Clack() {};
+    /**
+     * Create new instance of Clack.
+     */
+    public Clack() {
+    }
 
     /**
      * The entry point of the Clack application. The program expects the following command-line arguments:
@@ -108,7 +111,6 @@ public class Clack {
             System.err.println(USAGE);
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            System.err.println(USAGE);
         }
     }
 }
