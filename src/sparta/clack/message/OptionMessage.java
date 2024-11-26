@@ -4,15 +4,22 @@ package sparta.clack.message;
  * This class represents a message that contains an option and its corresponding value.
  */
 public class OptionMessage extends Message {
+    /**
+     * The option type (e.g., CIPHER_KEY, CIPHER_NAME, CIPHER_ENABLE).
+     */
     private final OptionEnum option;
+
+    /**
+     * The value associated with the option, as a String.
+     */
     private final String value;
 
     /**
      * Constructs an OptionMessage object.
      *
      * @param username the name of the user creating this message.
-     * @param option the option type (e.g., CIPHER_KEY, CIPHER_NAME, CIPHER_ENABLE).
-     * @param value the value associated with the option.
+     * @param option   the option type (e.g., CIPHER_KEY, CIPHER_NAME, CIPHER_ENABLE).
+     * @param value    the value associated with the option.
      */
     public OptionMessage(String username, OptionEnum option, String value) {
         super(username, MsgType.OPTION);

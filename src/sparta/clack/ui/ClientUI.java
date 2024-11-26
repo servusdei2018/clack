@@ -13,6 +13,11 @@ import java.awt.*;
  */
 public class ClientUI {
     /**
+     * Default constructor.
+     */
+    public ClientUI() {}
+
+    /**
      * Launches the main user interface for the Clack client.
      */
     public void run() {

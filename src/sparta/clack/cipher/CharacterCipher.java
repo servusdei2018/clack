@@ -32,7 +32,8 @@ public abstract class CharacterCipher {
      *
      * @param n       the number to be "modded".
      * @param modulus the modulus.
-     * @throws IllegalArgumentException if modulus < 1.
+     * @throws IllegalArgumentException if modulus is less than 1.
+     * @return the result of the modulus operation, guaranteed to be in the range [0, modulus).
      */
     public static int mod(int n, int modulus) {
         if (modulus < 1) {
